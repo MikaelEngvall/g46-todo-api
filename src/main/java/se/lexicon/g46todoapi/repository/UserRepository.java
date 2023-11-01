@@ -10,13 +10,13 @@ import se.lexicon.g46todoapi.domain.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, String> {
 
-  Boolean existsByEmail(String email);
+    Boolean existsByEmail(String email);
 
-  @Modifying
-  @Query("update User u set u.expired = :status where u.email = :email")
-  void updateExpiredByEmail(@Param("email") String email, @Param("status") boolean status);
+    @Modifying
+    @Query("update User u set u.expired = :status where u.email = :email")
+    void updateExpiredByEmail(@Param("email") String email, @Param("status") boolean status);
 
-  @Modifying
-  @Query("update User u set u.password = :password where u.email = :email")
-  void updatePasswordByEmail(@Param("email") String email, @Param("password") String newPassword);
+    @Modifying
+    @Query("update User u set u.password = :password where u.email = :email")
+    void updatePasswordByEmail(@Param("email") String email, @Param("password") String newPassword);
 }

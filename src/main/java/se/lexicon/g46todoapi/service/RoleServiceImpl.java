@@ -13,23 +13,23 @@ import java.util.List;
 @Service
 public class RoleServiceImpl implements RoleService {
 
-  private final RoleRepository roleRepository;
-  private final RoleConverter roleConverter;
+    private final RoleRepository roleRepository;
+    private final RoleConverter roleConverter;
 
-  @Autowired
-  public RoleServiceImpl(RoleRepository roleRepository, RoleConverter roleConverter) {
-    this.roleRepository = roleRepository;
-    this.roleConverter = roleConverter;
-  }
-
-  @Override
-  public List<RoleDTOView> getAll() {
-    List<Role> roles = roleRepository.findAll();
-    List<RoleDTOView> roleDTOList = new ArrayList<>();
-    for (Role entity : roles) {
-      roleDTOList.add(roleConverter.toRoleDTOView(entity));
+    @Autowired
+    public RoleServiceImpl(RoleRepository roleRepository, RoleConverter roleConverter) {
+        this.roleRepository = roleRepository;
+        this.roleConverter = roleConverter;
     }
-    return roleDTOList;
-  }
+
+    @Override
+    public List<RoleDTOView> getAll() {
+        List<Role> roles = roleRepository.findAll();
+        List<RoleDTOView> roleDTOList = new ArrayList<>();
+        for (Role entity : roles) {
+            roleDTOList.add(roleConverter.toRoleDTOView(entity));
+        }
+        return roleDTOList;
+    }
 
 }

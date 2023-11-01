@@ -10,7 +10,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 public class UserDTOForm {
-  private String email;
-  private String password;
-  private Set<RoleDTOForm> roles;
+    private String email;
+    private String password;
+    private Set<RoleDTOForm> roles;
 }

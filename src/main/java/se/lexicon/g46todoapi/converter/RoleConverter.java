@@ -6,7 +6,7 @@ import se.lexicon.g46todoapi.domain.entity.Role;
 
 public interface RoleConverter {
 
-  RoleDTOView toRoleDTOView(Role entity);
+    RoleDTOView toRoleDTOView(Role entity);
 
-  Role toRoleEntity(RoleDTOView dtoView);
+    Role toRoleEntity(RoleDTOView dtoView);
 }

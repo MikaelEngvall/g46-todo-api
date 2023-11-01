@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface RoleService {
 
-  List<RoleDTOView> getAll();
+    List<RoleDTOView> getAll();
 
 }
