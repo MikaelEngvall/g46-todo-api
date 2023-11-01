@@ -61,14 +61,15 @@ public class DataLoader implements CommandLineRunner {
         // Tasks   Startdate should be added to the task when created, right?
         Task task = new Task("Tjena", "Tjeeeenare", LocalDate.now().plusDays(3), false, mikael);
         taskRepository.save(task);
-        Task task2 = new Task("Tjabba", "Tjabba", LocalDate.now().plusDays(4), true, anders);
+        Task task2 = new Task("Tjabba", "Tjabba", LocalDate.now().plusDays(4), false, null);
         taskRepository.save(task2);
-        Task task3 = new Task("Hallo", "Halloj", LocalDate.now().plusDays(7), false, null);
+        Task task3 = new Task("Hallo", "Halloj", LocalDate.now().plusDays(7), true, anders);
         taskRepository.save(task3);
         // add more roles as needed
 
-        System.out.println("\u001B[31mTo be done in 4 days : \u001B[0m" + taskRepository.findTasksByDeadline(LocalDate.now().plusDays(4)));
+        System.out.println("\u001B[31mTo be done in 7 days : \u001B[0m" + taskRepository.findTasksByDeadline(LocalDate.now().plusDays(7)));
         System.out.println("\u001B[31mNot done yet : \u001B[0m" + taskRepository.findTasksByNotDone());
         System.out.println("\u001B[31mNot assigned : \u001B[0m" + taskRepository.findTasksByUnassigned());
+        System.out.println("\u001B[31mBetween today and in 3 days : \u001B[0m" + taskRepository.findTasksByDateBetweenStartAndEnd(LocalDate.now(), LocalDate.now().plusDays(3)));
     }
 }
