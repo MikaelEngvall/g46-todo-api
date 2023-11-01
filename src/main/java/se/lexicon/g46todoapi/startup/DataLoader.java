@@ -1,5 +1,6 @@
 package se.lexicon.g46todoapi.startup;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -16,6 +17,7 @@ import se.lexicon.g46todoapi.repository.UserRepository;
 import java.time.LocalDate;
 
 @Component
+@Transactional
 public class DataLoader implements CommandLineRunner {
 
 
@@ -66,6 +68,10 @@ public class DataLoader implements CommandLineRunner {
         Task task3 = new Task("Hallo", "Halloj", LocalDate.now().plusDays(7), true, anders);
         taskRepository.save(task3);
         // add more roles as needed
+
+        // Updates user with email test@mail.se to expired
+        userRepository.updateExpiredByEmail("test@email.se", true);  //@Transactional must be added in order for this to work
+
 
         System.out.println("\u001B[31mTo be done in 7 days : \u001B[0m" + taskRepository.findTasksByDeadline(LocalDate.now().plusDays(7)));
         System.out.println("\u001B[31mNot done yet : \u001B[0m" + taskRepository.findTasksByNotDone());
