@@ -23,6 +23,7 @@ public class Task {
         this.title = title;
         this.description = description;
         this.deadline = deadline;
+        this.startDate = LocalDate.now(); // Set the start date to the current date
         this.done = done;
         this.person = person;
     }
@@ -34,6 +35,9 @@ public class Task {
     private String description;
     private LocalDate deadline;
     private boolean done;
+
+    @Column(name = "start_date")
+    private LocalDate startDate; // Add a property for the start date
 
     @ManyToOne
     @JoinColumn(name = "person_id")

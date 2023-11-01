@@ -22,7 +22,7 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> findTasksByStatus(@Param("status") boolean done);
 
     // todo: fix startdate
-    @Query("select t from Task t where t.deadline >= :startdate and t.deadline <= :enddate")
+    @Query("select t from Task t where t.startDate >= :startdate and t.deadline <= :enddate")
     List<Task> findTasksByDateBetweenStartAndEnd(@Param("startdate") LocalDate startDate, @Param("enddate") LocalDate endDate);
 
     @Query("select t from Task t where t.deadline = :deadline")

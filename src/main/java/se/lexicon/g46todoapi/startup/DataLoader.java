@@ -58,7 +58,7 @@ public class DataLoader implements CommandLineRunner {
         anders.setUser(andersUser);
         personRepository.save(anders);
 
-        // Tasks
+        // Tasks   Startdate should be added to the task when created, right?
         Task task = new Task("Tjena", "Tjeeeenare", LocalDate.now().plusDays(3), false, mikael);
         taskRepository.save(task);
         Task task2 = new Task("Tjabba", "Tjabba", LocalDate.now().plusDays(4), true, anders);
