@@ -2,6 +2,7 @@ package se.lexicon.g46todoapi.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import se.lexicon.g46todoapi.exception.DataNotFoundException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -49,7 +50,7 @@ public class User {
         if (roles != null) {
             roles.remove(role);
         } else {
-            // todo: throw exception if needed ...
+            throw new DataNotFoundException("Role not present");
         }
     }
 }
