@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import se.lexicon.g46todoapi.domain.entity.Role;
 import se.lexicon.g46todoapi.domain.entity.User;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
@@ -22,36 +23,19 @@ class UserRepositoryTest {
     @Test
     @Modifying
     void testUpdateExpiredByEmail() {
-        Role role = new Role("ADMIN");
-        System.out.println("SAVE ROLE" + role);
-        roleRepository.save(role);
+        // Create a new user and save it to the database.
+        User userOne = new User("test@test.com", "1234");
+        userOne.setExpired(false);
+        userRepository.save(userOne);
 
-        User user = new User("test@test.com", "1234");
-        user.addRole(role);
-        user.setExpired(false);
-        System.out.println("SAVE USER");
-        userRepository.save(user);
-
-
-
-        System.out.println("SDAJLDJSALFKJASLSFJKF " + userRepository.findAll().size());
+        // Update the expired value of the user. So I hoped but I dunno if it is actually happening
         userRepository.updateExpiredByEmail("test@test.com", true);
 
-        userRepository.findById("test@test.com").ifPresent(element -> assertTrue(element.isExpired()));
+        // Get the user from the db
+        User updatedUser = userRepository.findById("test@test.com").orElse(null);
+
+        // Assert that the expired value of the user is now true. But it isn't!!!!!
+        assertThat(updatedUser.isExpired()).isTrue();
     }
 
-
-    @Test
-    void testUpdatePasswordByEmail() {
-    }
 }
-
-
-//    @Modifying
-//    @Query("update User u set u.expired = :status where u.email = :email")
-//    void updateExpiredByEmail(@Param("email") String email, @Param("status") boolean status);
-
-// TODO: 02/11/2023 Fix this one! 
-//    @Modifying
-//    @Query("update User u set u.expired = :password where u.email = :email")
-//    void updatePasswordByEmail(@Param("email") String email, @Param("password") String newPassword);
