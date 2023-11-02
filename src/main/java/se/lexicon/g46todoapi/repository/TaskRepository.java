@@ -12,27 +12,28 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-//    @Query("select t from Task t where t.title = :title")
-//    List<Task> findTasksByTitle(@Param("title") String title);
-    List<Task> findByTitleContains(String title);
+    List<Task> findByTitleContainsIgnoreCase(String title);
 
-//    @Query("select t from Task t where t.person.id = :person_id")
-    List<Task> findTasksByPersonId(Long id);
+    List<Task> findTasksByPerson_Id(Long id);
 
-//    @Query("select t from Task t where t.done = :status")
-    List<Task> findTasksByNotDone(boolean done);
+    List<Task> findByDone(boolean done);
 
-//    @Query("select t from Task t where t.startDate >= :startdate and t.deadline <= :enddate")
-    List<Task> findTasksByDateBetweenStartAndEnd(@Param("startdate") LocalDate startDate, @Param("enddate") LocalDate endDate);
+    List<Task> findByDeadlineBetween(LocalDate from, LocalDate to);
 
-//    @Query("select t from Task t where t.deadline = :deadline")
-    List<Task> findTasksByDeadline(LocalDate deadline);
+    List<Task> findByDeadline(LocalDate deadline);
 
-//    @Query("select t from Task t where t.person = null")
-    List<Task> findTasksByPersonIsNull();
-    List<Task> findTasksByPersonIsNotNull();
+    List<Task> findByPersonNull();
 
-//    @Query("select t from Task t where t.done = false")
-    List<Task> findTasksByNotDone();
+    List<Task> findByPersonNotNull();
+
+    @Query("select t from Task t where t.done = false")
+    List<Task> selectUnFinishedTasks();
+
+    List<Task> findByDoneFalse();
+
+//    @Query("select t from Task t where t.done = false and current_date > t.deadline")
+//    List<Task> selectTasksByNotDoneAndOverdue();
+
+    List<Task> findByDoneFalseAndDeadlineBefore(LocalDate date);
 
 }
