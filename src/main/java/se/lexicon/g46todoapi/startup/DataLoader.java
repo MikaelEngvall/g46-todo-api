@@ -75,7 +75,7 @@ public class DataLoader implements CommandLineRunner {
 
         System.out.println("\u001B[31mTo be done in 7 days : \u001B[0m" + taskRepository.findTasksByDeadline(LocalDate.now().plusDays(7)));
         System.out.println("\u001B[31mNot done yet : \u001B[0m" + taskRepository.findTasksByNotDone());
-        System.out.println("\u001B[31mNot assigned : \u001B[0m" + taskRepository.findTasksByUnassigned());
+        System.out.println("\u001B[31mNot assigned : \u001B[0m" + taskRepository.findTasksByPersonIsNull());
         System.out.println("\u001B[31mBetween today and in 3 days : \u001B[0m" + taskRepository.findTasksByDateBetweenStartAndEnd(LocalDate.now(), LocalDate.now().plusDays(3)));
     }
 }
