@@ -1,7 +1,6 @@
 package se.lexicon.g46todoapi.repository;
 
 import jakarta.transaction.Transactional;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -9,6 +8,8 @@ import se.lexicon.g46todoapi.domain.entity.Person;
 import se.lexicon.g46todoapi.domain.entity.Task;
 
 import java.time.LocalDate;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @SpringBootTest
@@ -30,7 +31,7 @@ class TaskRepositoryTest {
         oneTask3.setTitle("tl");
 
         taskRepository.save(oneTask);
-        Assertions.assertEquals(1, taskRepository.findByTitleContainsIgnoreCase("iTl").size());
+        assertEquals(1, taskRepository.findByTitleContainsIgnoreCase("iTl").size());
     }
 
     @Test
@@ -45,7 +46,7 @@ class TaskRepositoryTest {
         twoTask.setPerson(foundPerson);
         taskRepository.save(twoTask);
 
-        Assertions.assertEquals(1, taskRepository.findTasksByPerson_Id(foundPersonId).size());
+        assertEquals(1, taskRepository.findTasksByPerson_Id(foundPersonId).size());
     }
 
     @Test
@@ -53,7 +54,7 @@ class TaskRepositoryTest {
         Task threeTask = new Task();
         threeTask.setDone(true);
         taskRepository.save(threeTask);
-        Assertions.assertEquals(1, taskRepository.findByDone(true).size());
+        assertEquals(1, taskRepository.findByDone(true).size());
     }
 
     @Test
@@ -71,7 +72,7 @@ class TaskRepositoryTest {
         LocalDate from = LocalDate.now();
         LocalDate to = LocalDate.now().plusDays(1);
 
-        Assertions.assertEquals(2, taskRepository.findByDeadlineBetween(from, to).size());
+        assertEquals(2, taskRepository.findByDeadlineBetween(from, to).size());
     }
 
     @Test
@@ -80,7 +81,7 @@ class TaskRepositoryTest {
         fourTask.setDeadline(LocalDate.now());
         taskRepository.save(fourTask);
 
-        Assertions.assertEquals(1, taskRepository.findByDeadline(LocalDate.now()).size());
+        assertEquals(1, taskRepository.findByDeadline(LocalDate.now()).size());
     }
 
     @Test
@@ -94,7 +95,7 @@ class TaskRepositoryTest {
         taskRepository.save(fiveTask1);
         taskRepository.save(fiveTask2);
 
-        Assertions.assertEquals(1, taskRepository.findByPersonNull().size());
+        assertEquals(1, taskRepository.findByPersonNull().size());
     }
 
     @Test
@@ -108,7 +109,7 @@ class TaskRepositoryTest {
         taskRepository.save(sixTask1);
         taskRepository.save(sixTask2);
 
-        Assertions.assertEquals(1, taskRepository.findByPersonNotNull().size());
+        assertEquals(1, taskRepository.findByPersonNotNull().size());
     }
 
     @Test
@@ -119,7 +120,7 @@ class TaskRepositoryTest {
         taskRepository.save(task7);
         taskRepository.save(task8);
 
-        Assertions.assertEquals(1, taskRepository.findByDoneFalse().size());
+        assertEquals(1, taskRepository.findByDoneFalse().size());
     }
 
     @Test
@@ -144,6 +145,6 @@ class TaskRepositoryTest {
         taskRepository.save(task13);
         taskRepository.save(task14);
 
-        Assertions.assertEquals(1, taskRepository.findByDoneFalseAndDeadlineBefore(LocalDate.now()).size());
+        assertEquals(1, taskRepository.findByDoneFalseAndDeadlineBefore(LocalDate.now()).size());
     }
 }
