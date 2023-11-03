@@ -1,5 +1,6 @@
 package se.lexicon.g46todoapi.service;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.lexicon.g46todoapi.domain.dto.RoleDTOView;
@@ -120,8 +121,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void enableByEmail(String email) {
         isEmailTaken(email);
-        userRepository.updateExpiredByEmail(email, false);
-
+        User user = userRepository.getUserByEmail(email);
+        user.setExpired(false);
+        userRepository.save(user);
     }
 
     private void isEmailTaken(String email) {

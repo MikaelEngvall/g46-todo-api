@@ -16,6 +16,7 @@ import java.util.Set;
 @Builder
 
 @Entity
+@Table(name = "user")
 public class User {
 
     @Id
@@ -38,7 +39,13 @@ public class User {
         this.email = email;
         this.password = password;
     }
-
+    public void changeStatus(){
+        if (this.expired){
+            this.expired = false;
+        } else {
+            this.expired = true;
+        }
+    }
     public void addRole(Role role) {
         if (role == null) throw new IllegalArgumentException("Role is null.");
         if (roles == null) roles = new HashSet<>();

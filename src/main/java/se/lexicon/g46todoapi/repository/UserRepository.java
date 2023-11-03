@@ -12,8 +12,10 @@ public interface UserRepository extends JpaRepository<User, String> {
 
     Boolean existsByEmail(String email);
 
+    User getUserByEmail(String email);
+
     @Modifying
-    @Query("update User u set u.expired = :status where u.email = :email")
+    @Query("update User u set u.expired = :status where u.email = :email")  // It doesn't work because the db doesn't allow it, I don't know why though?
     void updateExpiredByEmail(@Param("email") String email, @Param("status") boolean status);
 
     @Modifying
