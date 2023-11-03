@@ -1,8 +1,8 @@
 package se.lexicon.g46todoapi.service;
 
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import se.lexicon.g46todoapi.converter.UserConverter;
 import se.lexicon.g46todoapi.domain.dto.RoleDTOView;
 import se.lexicon.g46todoapi.domain.dto.UserDTOForm;
 import se.lexicon.g46todoapi.domain.dto.UserDTOView;
@@ -29,16 +29,29 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final CustomPasswordEncoder passwordEncoder;
+    private final UserConverter userConverter;
 
     @Autowired
     public UserServiceImpl(
             UserRepository userRepository,
             RoleRepository roleRepository,
+            UserConverter userConverter,
             CustomPasswordEncoder passwordEncoder
     ) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
+        this.userConverter = userConverter;
+    }
+
+    @Override
+    public List<UserDTOView> getAll() {
+        List<User> users = userRepository.findAll();
+        List<UserDTOView> userDTOList = new ArrayList<>();
+        for (User entity : users) {
+            userDTOList.add(userConverter.toUserDTOView(entity));
+        }
+        return userDTOList;
     }
 
     @Override
