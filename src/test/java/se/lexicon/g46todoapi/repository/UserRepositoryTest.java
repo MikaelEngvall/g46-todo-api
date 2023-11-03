@@ -1,10 +1,10 @@
 package se.lexicon.g46todoapi.repository;
 
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.test.annotation.Rollback;
 import se.lexicon.g46todoapi.domain.entity.User;
 
@@ -14,7 +14,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class UserRepositoryTest {
 
     @Autowired
-    private UserRepository sut;
+    private UserRepository userRepository;
+    @Autowired
+    EntityManager entityManager;
+
 
     @Test
     @Transactional
@@ -23,16 +26,18 @@ class UserRepositoryTest {
         // Create a new user and save it to the database.
         User userOne = new User("test@test.com", "1234");
         userOne.setExpired(false);
-        sut.save(userOne);
+        userRepository.save(userOne);
 
-        // Update the expired value of the user.
+        // These commit the change and open for new transaction. Otherwise, it won't work
+        entityManager.flush();
+        entityManager.clear();
 
 
-        // Refresh the user from the database.
-        sut.updateExpiredByEmail("test@test.com", true);  // Not working, why? TODO
+        // Updates the user from the database by changing the value of expired from false to true.
+        userRepository.updateExpiredByEmail("test@test.com", true);
 
         // Assert that the expired value of the user is now true.
-        assertTrue(sut.getUserByEmail("test@test.com").isExpired());
+        assertTrue(userRepository.getUserByEmail("test@test.com").isExpired());
     }
 
 }
