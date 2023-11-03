@@ -8,7 +8,6 @@ import org.springframework.transaction.annotation.Transactional;
 import se.lexicon.g46todoapi.domain.entity.User;
 import se.lexicon.g46todoapi.repository.UserRepository;
 
-import java.util.Optional;
 
 @Component
 public class MyCommandLineRunner implements CommandLineRunner {
@@ -21,12 +20,12 @@ public class MyCommandLineRunner implements CommandLineRunner {
 
     @Override
     @Transactional
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         // Creating user
         User userOne = new User("test@test.com", "1234");
         // Setting expired to false
         userOne.setExpired(false);
-        // Persisiting user
+        // Persisting user
         userRepository.save(userOne);
 
         // These commit the change(s) and open for new transaction(s). Otherwise, it won't work.
