@@ -16,11 +16,9 @@ import se.lexicon.g46todoapi.util.CustomPasswordEncoder;
 
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -53,7 +51,6 @@ public class UserServiceImpl implements UserService {
         }
         return userDTOList;
     }
-
     @Override
     public UserDTOView register(UserDTOForm userDTOForm) {
         // Check params
