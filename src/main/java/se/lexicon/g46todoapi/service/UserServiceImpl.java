@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
     public UserDTOView register(UserDTOForm userDTOForm) {
         // Check params
         if (userDTOForm == null) throw new IllegalArgumentException("User form is null.");
-        // Check if email exist
+        // Check if email exists
         boolean isExistEmail = userRepository.existsByEmail(userDTOForm.getEmail());
         if (isExistEmail) throw new DataDuplicateException("Email already exist.");
 

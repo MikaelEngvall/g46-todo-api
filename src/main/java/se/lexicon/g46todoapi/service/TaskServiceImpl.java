@@ -32,4 +32,13 @@ public class TaskServiceImpl implements TaskService{
         }
         return taskDTOList;
     }
+    @Override
+    public List<TaskDTOView> getTitleContainsIgnoreCase(String title){
+        List<Task> tasks = taskRepository.findByTitleContainsIgnoreCase(title);
+        List<TaskDTOView> taskDTOList = new ArrayList<>();
+        for (Task entity : tasks) {
+            taskDTOList.add(taskConverter.toTaskDTOView(entity));
+        }
+        return taskDTOList;
+    }
 }

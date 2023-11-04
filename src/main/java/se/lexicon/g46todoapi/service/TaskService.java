@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface TaskService {
     List<TaskDTOView> getAll();
+
+    List<TaskDTOView> getTitleContainsIgnoreCase(String title);
 }
