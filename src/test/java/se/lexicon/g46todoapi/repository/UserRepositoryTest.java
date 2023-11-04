@@ -2,6 +2,7 @@ package se.lexicon.g46todoapi.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,12 +19,8 @@ class UserRepositoryTest {
     @Autowired
     EntityManager entityManager;
 
-
-    @Test
-    @Transactional
-    @Rollback(false)
-    void testUpdateExpiredByEmail() {
-        // Create a new user and save it to the database.
+    @BeforeEach
+    void setup() {
         User userOne = new User("test@test.com", "1234");
         userOne.setExpired(false);
         userRepository.save(userOne);
@@ -31,7 +28,11 @@ class UserRepositoryTest {
         // These commit the change and open for new transaction. Otherwise, it won't work
         entityManager.flush();
         entityManager.clear();
+    }
 
+    @Test
+    @Transactional
+    void testUpdateExpiredByEmail() {
 
         // Updates the user from the database by changing the value of expired from false to true.
         userRepository.updateExpiredByEmail("test@test.com", true);

@@ -26,8 +26,8 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
 
     List<Task> findByPersonNotNull();
 
-    @Query("select t from Task t where t.done = false")
-    List<Task> selectUnFinishedTasks();
+//    @Query("select t from Task t where t.done = false")
+//    List<Task> selectUnFinishedTasks();
 
     List<Task> findByDoneFalse();
 
